@@ -66,8 +66,8 @@ if args.csv:
             # Now change the variables in the installcheck_script
             newPlist['installcheck_script'] = newPlist['installcheck_script'].replace("PRINTERNAME", row[0])
             newPlist['installcheck_script'] = newPlist['installcheck_script'].replace("OPTIONS", theOptionString)
-            newPlist['installcheck_script'] = newPlist['installcheck_script'].replace("LOCATION", row[1].replace("'", "\\'"))
-            newPlist['installcheck_script'] = newPlist['installcheck_script'].replace("DISPLAY_NAME", row[2].replace("'", "\\'"))
+            newPlist['installcheck_script'] = newPlist['installcheck_script'].replace("LOCATION", row[1].replace('"', '\\"'))
+            newPlist['installcheck_script'] = newPlist['installcheck_script'].replace("DISPLAY_NAME", row[2].replace('"', '\\"'))
             newPlist['installcheck_script'] = newPlist['installcheck_script'].replace("ADDRESS", address)
             newPlist['installcheck_script'] = newPlist['installcheck_script'].replace("DRIVER", base_driver)
             # Now change the variables in the postinstall_script
@@ -152,8 +152,8 @@ else:
     newPlist['installcheck_script'] = templatePlist['installcheck_script'].replace("PRINTERNAME", args.printername)
     newPlist['installcheck_script'] = newPlist['installcheck_script'].replace("ADDRESS", address)
     newPlist['installcheck_script'] = newPlist['installcheck_script'].replace("DISPLAY_NAME", displayName)
-    newPlist['installcheck_script'] = newPlist['installcheck_script'].replace("LOCATION", location.replace("'", "\\'"))
-    newPlist['installcheck_script'] = newPlist['installcheck_script'].replace("DRIVER", os.path.splitext(os.path.basename(driver))[0].replace("'", "\\'"))
+    newPlist['installcheck_script'] = newPlist['installcheck_script'].replace("LOCATION", location.replace('"', '\\"'))
+    newPlist['installcheck_script'] = newPlist['installcheck_script'].replace("DRIVER", os.path.splitext(os.path.basename(driver))[0].replace('"', '\\"'))
     newPlist['installcheck_script'] = newPlist['installcheck_script'].replace("OPTIONS", optionsString)            
     # postinstall_script variable replacement
     newPlist['postinstall_script'] = templatePlist['postinstall_script'].replace("PRINTERNAME", args.printername)
