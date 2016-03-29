@@ -43,6 +43,8 @@ The CSV file's columns should be pretty self-explanatory:
 
 The CSV file is not sanity-checked for invalid entries or blank fields, so double check your file and test your pkginfos thoroughly.
 
+If you generate your own .csv using MS Office 2011 or 2016 on a Mac, be sure to save as **Windows Comma Separated (.csv)**. Otherwise, you may get this error: `_csv.Error: new-line character seen in unquoted field - do you need to open the file in universal-newline mode?`
+
 ### Command-line options:
 
 A full description of usage is available with:
