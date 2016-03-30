@@ -18,7 +18,12 @@ import subprocess
 import sys
 import shlex
 
-printerOptions = { OPTIONS }
+#printerOptions = { OPTIONS }
+
+# Based on code from http://stackoverflow.com/a/4917004
+def wedged_string(front_string, back_string, larger_string):
+	wedged=larger_string.partition(front_string)[2].partition(back_string)[0]
+	return wedged
 
 cmd = ['/usr/bin/lpoptions', '-p', 'PRINTERNAME', '-l']
 proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -38,7 +43,7 @@ proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 #will still exit 0, but just produce no output.  
 #Thanks, cups, I was having a good day until now.
 
-for option in lpoptLongOut.splitlines():
+'''for option in lpoptLongOut.splitlines():
     for myOption in printerOptions.keys():
         optionName = option.split("/", 1)[0]
         optionValues = option.split("/",1)[1].split(":")[1].strip().split(" ")
@@ -54,6 +59,9 @@ for option in lpoptLongOut.splitlines():
 optionDict = dict()                
 for builtOption in shlex.split(lpoptOut):
     optionDict[builtOption.split("=")[0]] = builtOption.split("=")[1]
+    '''
+
+optionDict = ({ "device-uri": wedged_string('device-uri=', ' finishings', lpoptOut), "printer-info": wedged_string('printer-info=', ' printer-is-accepting-jobs', lpoptOut), "printer-location": wedged_string('printer-location=\'', '\' printer-make-and-model', lpoptOut), "printer-make-and-model": wedged_string('printer-make-and-model=\'', '\' printer-state', lpoptOut) })
     
 comparisonDict = { "device-uri":"ADDRESS", "printer-info":"DISPLAY_NAME", "printer-location":"LOCATION", "printer-make-and-model":"DRIVER" }
 for keyName in comparisonDict.keys():
